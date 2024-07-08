@@ -4,3 +4,8 @@
 export const isDefined = <T>(
   value: T | null | undefined
 ): value is NonNullable<T> => value !== undefined && value !== null;
+
+/**
+ * Checks if a value is an empty string.
+ */
+export const isEmptyString = (value: string): boolean => value.trim() === '';

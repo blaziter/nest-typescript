@@ -1,6 +1,6 @@
 import { OmitType, PickType } from '@nestjs/swagger';
 
-import { User } from '@lib/models';
+import { User } from '@lib/model';
 
 export class FindUserByUsernameResponseDto extends PickType(User, [
   'userId',

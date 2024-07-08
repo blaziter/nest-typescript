@@ -1,12 +1,13 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
 
-import { User } from '@lib/models';
+import { User } from '@lib/model';
 
 export class UserLoginBodyDto extends PickType(User, [
   'username',
   'password',
 ]) {}
 export class UserLoginResponseDto {
+  @ApiProperty()
   access_token: string;
 }
 

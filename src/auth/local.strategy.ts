@@ -4,7 +4,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ContextIdFactory, ModuleRef } from '@nestjs/core';
 import { PassportStrategy } from '@nestjs/passport';
 
-import { isDefined } from '@lib/validator';
+import { isDefined } from '@lib';
 
 import { AuthService } from '@services/auth/auth.service';
 

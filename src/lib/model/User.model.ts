@@ -1,11 +1,13 @@
+import { IsUUID } from 'class-validator';
 import { UUID } from 'crypto';
 
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Role } from '@lib/enums';
+import { Role } from '@lib/enum';
 
 export class User {
   @ApiProperty()
+  @IsUUID()
   userId: UUID;
 
   @ApiProperty()
