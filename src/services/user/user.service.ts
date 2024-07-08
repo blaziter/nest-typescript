@@ -8,6 +8,7 @@ import { PostgresService } from '@services/postgres/postgres.service';
 
 import {
   CreateUserRequestDto,
+  CreateUserResponseDto,
   FindAllUsersResponseDto,
   FindUserByIdResponseDto,
   FindUserByUsernameResponseDto,
@@ -17,10 +18,20 @@ import {
 export class UserService {
   constructor(private postgresService: PostgresService) {}
 
-  async findAll(): Promise<FindAllUsersResponseDto> {
-    return await this.postgresService.query(
-      sql`SELECT id, created_at, username FROM users;`
+  async findAll(): Promise<FindAllUsersResponseDto[]> {
+    const users = await this.postgresService.query(
+      sql`SELECT id, created_at, created_by, username FROM users;`
     );
+
+    const result = await users.map(async (user) => {
+      user.roles = await this.postgresService.query(
+        sql`SELECT ur.role_id FROM user_role ur WHERE ur.user_id = ${user.id};`
+      );
+
+      return user;
+    });
+
+    return Promise.all(result);
   }
 
   async findOne(userId: UUID): Promise<FindUserByIdResponseDto> {
@@ -29,7 +40,7 @@ export class UserService {
     }
 
     const user = await this.postgresService.query(
-      sql`SELECT id, created_at, username FROM users WHERE id = ${userId};`
+      sql`SELECT id, created_at, created_by, username FROM users WHERE id = ${userId};`
     );
 
     if (!user[0]) {
@@ -58,10 +69,10 @@ export class UserService {
       sql`SELECT ur.role_id FROM user_role ur WHERE ur.user_id = ${user[0].id};`
     );
 
-    return { ...user[0], roles };
+    return { ...user[0], userId: user[0].id, roles };
   }
 
-  async create(body: CreateUserRequestDto) {
+  async create(body: CreateUserRequestDto): Promise<CreateUserResponseDto> {
     const user = await this.postgresService.query(
       sql`SELECT username FROM users WHERE username = ${body.username};`
     );

@@ -7,13 +7,14 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { Public } from '@lib/decorator';
 
 import {
   UserLoginBodyDto,
   UserLoginResponseDto,
+  UserProfileResponseDto,
   UserRegisterBodyDto,
   UserRegisterResponseDto,
 } from '@services/auth/auth.dto';
@@ -29,12 +30,14 @@ export class AuthController {
   @UseGuards(AuthGuard('local'))
   @Public()
   @Post('login')
+  @ApiResponse({ status: 201, type: UserLoginResponseDto })
   signIn(@Body() body: UserLoginBodyDto): Promise<UserLoginResponseDto> {
     return this.authService.login(body);
   }
 
   @Post('register')
   @Public()
+  @ApiResponse({ status: 201, type: UserRegisterResponseDto })
   register(
     @Body() body: UserRegisterBodyDto
   ): Promise<UserRegisterResponseDto> {
@@ -43,7 +46,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  @ApiResponse({ status: 201, type: UserProfileResponseDto })
+  getProfile(@Request() req): Promise<UserProfileResponseDto> {
     return req.user;
   }
 }

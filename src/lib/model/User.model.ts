@@ -11,6 +11,13 @@ export class User {
   userId: UUID;
 
   @ApiProperty()
+  created_at: Date;
+
+  @ApiProperty()
+  @IsUUID()
+  created_by: UUID;
+
+  @ApiProperty()
   username: string;
 
   @ApiProperty({ enum: Role })

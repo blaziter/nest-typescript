@@ -1,6 +1,6 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
 
-import { User } from '@lib/model';
+import { BaseCreatedModel, User } from '@lib/model';
 
 export class UserLoginBodyDto extends PickType(User, [
   'username',
@@ -15,11 +15,16 @@ export class UserRegisterBodyDto extends UserLoginBodyDto {
   @ApiProperty()
   confirmPassword: string;
 }
-export class UserRegisterResponseDto {
-  message: string;
-}
+export class UserRegisterResponseDto extends BaseCreatedModel {}
 
 export class UserProfileResponseDto extends PickType(User, [
+  'userId',
   'username',
   'roles',
-]) {}
+]) {
+  @ApiProperty()
+  iat: number;
+
+  @ApiProperty()
+  exp: number;
+}

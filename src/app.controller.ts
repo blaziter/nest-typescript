@@ -1,7 +1,7 @@
 import { Response } from 'express';
 
 import { Controller, Get, Res } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { Public } from '@lib/decorator';
 
@@ -14,6 +14,7 @@ export class AppController {
 
   @Public()
   @Get()
+  @ApiResponse({ status: 200, description: 'Get index page of server' })
   getInfo(@Res() res: Response) {
     return this.appService.getInfo(res);
   }
