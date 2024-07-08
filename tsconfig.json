@@ -1,28 +1,30 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "target": "ES2021",
     "lib": [
-			"ES2021"
-		],
-		"moduleResolution": "node",
-		"allowJs": true,
+      "ES2021"
+    ],
+    "module": "commonjs",
+    "skipLibCheck": true,
+    /* Bundler mode */
+    "moduleResolution": "node",
+    "allowJs": true,
     "declaration": true,
-		"declarationMap": true,
+    "declarationMap": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-		"esModuleInterop": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
     "sourceMap": true,
     "outDir": "./dist",
     "incremental": true,
-    "skipLibCheck": true,
-
     /* alias importing */
     "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
     "paths": {
-        "@*": ["src/*"]
+      "@*": [
+        "src/*"
+      ]
     }
   }
 }

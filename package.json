@@ -1,9 +1,21 @@
 {
-  "name": "nest-typescript-starter",
+  "name": "nest-typescript",
   "private": true,
   "version": "1.0.0",
-  "description": "Nest TypeScript starter repository",
+  "description": "Nest TypeScript starter repository for educational purposes. Connected with vite-typescript.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blaziter/nest-typescript.git"
+  },
+  "author": "Petr Tran <petrblaztran@gmail.com> (https://github.com/blaziter)",
+  "contributors": [
+    {
+      "name": "Josef Svoboda",
+      "email": "josef_svoboda@seznam.cz",
+      "url": "https://github.com/Grem1"
+    }
+  ],
   "scripts": {
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -12,7 +24,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/src/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "shoot": "pnpm barrelgun shoot",
+    "shoot": "pnpm barrelgun shoot && pnpm format",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
