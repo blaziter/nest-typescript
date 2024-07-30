@@ -8,28 +8,22 @@ const fileTemplate = (files, lineTemplate = defaultLineTemplate) =>
  * @type {import("barrelgun").BarrelgunConfig["barrels"]} */
 const barrels = [
   {
-    path: ['src/auth/index.ts', 'src/user/index.ts'],
+    path: 'src/{auth,health,role,user}/index.ts',
     files: ['*.{controller,module,service}.ts'],
     fileTemplate: fileTemplate,
   },
   {
-    path: [
-      'src/services/*/dto.ts',
-    ],
+    path: ['src/services/*/dto.ts'],
     files: '*.dto.ts',
     fileTemplate: fileTemplate,
   },
   {
-    path: [
-      'src/services/*/service.ts',
-    ],
+    path: ['src/services/*/service.ts'],
     files: '*.service.ts',
     fileTemplate: fileTemplate,
   },
   {
-    path: [
-      'src/lib/**/index.ts',
-    ],
+    path: ['src/lib/**/index.ts'],
     files: '*.{decorator,enum,model}.ts',
     fileTemplate: fileTemplate,
   },
