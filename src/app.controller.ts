@@ -14,7 +14,10 @@ export class AppController {
 
   @Public()
   @Get()
-  @ApiResponse({ status: 200, description: 'Get index page of server' })
+  @ApiResponse({
+    status: 200,
+    description: 'Get index page of server',
+  })
   getInfo(@Res() res: Response) {
     return this.appService.getInfo(res);
   }
