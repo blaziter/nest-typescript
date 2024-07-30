@@ -11,6 +11,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 
 import { PostgresService } from '@services/postgres/postgres.service';
+import { FindUserByUsernameResponseDto } from '@services/user/user.dto';
 import { UserService } from '@services/user/user.service';
 
 import {
@@ -68,7 +69,10 @@ export class AuthService {
     throw new NotFoundException();
   }
 
-  async validateUser(username: string, password: string): Promise<any> {
+  async validateUser(
+    username: string,
+    password: string
+  ): Promise<FindUserByUsernameResponseDto> {
     const user = await this.userService.findByUsername(username);
 
     if (!(await bcrypt.compare(password, user.password)) || !user) {
@@ -76,6 +80,6 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    return { password, ...user };
+    return { ...user, password };
   }
 }

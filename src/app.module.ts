@@ -3,7 +3,6 @@ import { LoggerModule } from 'nestjs-pino';
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { TerminusModule } from '@nestjs/terminus';
 
@@ -11,8 +10,8 @@ import { ServicesModule } from '@services/services.module';
 
 import { AuthModule } from '@auth';
 import { jwtConstants } from '@auth/constants';
-import { RolesGuard } from '@auth/roles.guard';
 import { HealthController } from '@health/health.controller';
+import { RoleModule } from '@role/role.module';
 import { UserModule } from '@user';
 
 import { AppController } from './app.controller';
@@ -44,6 +43,7 @@ import { AppService } from './app.service';
     ServicesModule,
     AuthModule,
     UserModule,
+    RoleModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],

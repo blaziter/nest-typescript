@@ -7,6 +7,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { isDefined } from '@lib';
 
 import { AuthService } from '@services/auth/auth.service';
+import { FindUserByUsernameResponseDto } from '@services/user/user.dto';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -23,7 +24,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     request: Request,
     username: string,
     password: string
-  ): Promise<any> {
+  ): Promise<FindUserByUsernameResponseDto> {
     //const contextId = ContextIdFactory.getByRequest(request);
     const user = await this.authService.validateUser(username, password);
 

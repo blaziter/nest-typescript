@@ -1,4 +1,4 @@
-import { IsUUID } from 'class-validator';
+import { IsArray, IsEnum, IsUUID } from 'class-validator';
 import { UUID } from 'crypto';
 
 import { ApiProperty } from '@nestjs/swagger';
@@ -20,7 +20,13 @@ export class User {
   @ApiProperty()
   username: string;
 
-  @ApiProperty({ enum: Role })
+  @ApiProperty({
+    enum: Role,
+    isArray: true,
+    example: Object.values(Role),
+  })
+  @IsArray()
+  @IsEnum(Role, { each: true })
   roles: Role[];
 
   @ApiProperty()

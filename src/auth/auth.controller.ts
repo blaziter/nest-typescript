@@ -1,11 +1,6 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Request } from 'express';
+
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -46,8 +41,8 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  @ApiResponse({ status: 201, type: UserProfileResponseDto })
-  getProfile(@Request() req): Promise<UserProfileResponseDto> {
+  @ApiResponse({ status: 200, type: UserProfileResponseDto })
+  getProfile(@Req() req: Request): Express.User | undefined {
     return req.user;
   }
 }
