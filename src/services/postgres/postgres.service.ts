@@ -4,10 +4,8 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class PostgresService {
-  constructor() {}
-
   async query(query: QueryConfig<any[]>): Promise<QueryResultRow> {
-    const db = new Pool({
+    const db: Pool = new Pool({
       user: process.env.DB_USR,
       host: process.env.DB_HOST,
       password: process.env.DB_PWD,
