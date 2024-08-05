@@ -7,6 +7,8 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { PostgresService } from '@services/postgres/postgres.service';
 
 import {
+  AssignRolesRequestDto,
+  AssignRolesResponseDto,
   CreateUserRequestDto,
   CreateUserResponseDto,
   FindAllUsersResponseDto,
@@ -86,5 +88,36 @@ export class UserService {
     );
 
     return { message: 'User created' };
+  }
+
+  async assignRoles({
+    userId,
+    roles,
+  }: AssignRolesRequestDto): Promise<AssignRolesResponseDto> {
+    if (!isUUID(userId)) {
+      throw new HttpException('Invalid user ID', 400);
+    }
+
+    const user = await this.postgresService.query(
+      sql`SELECT id FROM users WHERE id = ${userId};`
+    );
+
+    if (!user[0]) {
+      throw new HttpException('User not found', 404);
+    }
+
+    const selectedRoles = await this.postgresService.query(
+      sql`SELECT id FROM roles WHERE id = ANY(${roles});`
+    );
+
+    if (selectedRoles.length !== roles.length) {
+      throw new HttpException('Role not found', 404);
+    }
+
+    await this.postgresService.query(
+      sql`INSERT INTO user_role (user_id, role_id) VALUES (${userId}, ${roles});`
+    );
+
+    return { message: 'Roles assigned' };
   }
 }

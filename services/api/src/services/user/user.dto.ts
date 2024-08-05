@@ -23,3 +23,10 @@ export class CreateUserRequestDto extends OmitType(User, [
 ]) {}
 
 export class CreateUserResponseDto extends BaseCreatedModel {}
+
+export class AssignRolesRequestDto extends PickType(User, [
+  'userId',
+  'roles',
+]) {}
+
+export class AssignRolesResponseDto extends BaseCreatedModel {}

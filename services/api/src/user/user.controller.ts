@@ -4,6 +4,8 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import {
+  AssignRolesRequestDto,
+  AssignRolesResponseDto,
   CreateUserRequestDto,
   CreateUserResponseDto,
   FindAllUsersResponseDto,
@@ -33,5 +35,13 @@ export class UserController {
   @ApiResponse({ status: 201, type: CreateUserResponseDto })
   create(@Body() user: CreateUserRequestDto): Promise<CreateUserResponseDto> {
     return this.userService.create(user);
+  }
+
+  @Post('assign-roles')
+  @ApiResponse({ status: 201 })
+  assignRoles(
+    @Body() body: AssignRolesRequestDto
+  ): Promise<AssignRolesResponseDto> {
+    return this.userService.assignRoles(body);
   }
 }
